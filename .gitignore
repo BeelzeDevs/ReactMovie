@@ -1,0 +1,21 @@
+**/node_modules
+**/bin/
+**/obj/
+*.user
+*.vs/
+*.log
+*.DS_Store
+# Bin y Obj
+[Bb]in/
+[Oo]bj/
+obj/
+Obj/
+Bin/
+bin/
+
+# VS Code
+.vscode/
+*.vs/
+
+
+.ignore
