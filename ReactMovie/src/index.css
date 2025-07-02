@@ -1,3 +1,8 @@
+#root{
+  max-width: max-content;
+  margin: 0;
+  padding: 2rem;
+}
 * {
   margin: 0;
   padding: 0;
@@ -22,4 +27,26 @@ body {
 }
 .link{
   color: white;
+}
+/* Grid cards movie */
+.grid-cards-home{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* Cards Movie, img , link */
+.cardMovie{
+  width: 200px;
+  margin: 0.8rem;
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  color:white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 0px 12px 0px;
+}
+.card-img{
+  width: 100%;
 }

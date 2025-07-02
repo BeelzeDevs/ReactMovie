@@ -2,6 +2,8 @@
 **/bin/
 **/obj/
 *.user
+*.env
+**.env
 *.vs/
 *.log
 *.DS_Store
@@ -18,4 +20,4 @@ bin/
 *.vs/
 
 
-.ignore
+.gitignore
