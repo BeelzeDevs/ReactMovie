@@ -16,3 +16,17 @@ export async function fetchPeliculasPopulares(){
     return data.results;
     
 }
+
+export async function buscarPeliculasPorNombre(query){
+    const resp = await fetch(`${URL}/search/movie?query=${query}&language=es-ES&page=1`,{
+        headers : {
+            Authorization : `Bearer ${API_KEY}`
+        }
+    });
+    const data = await resp.json();
+
+    if(!resp.ok){
+        throw new Error(data.status_message || 'Error al buscar películas');
+    }
+    return data.results;
+}
