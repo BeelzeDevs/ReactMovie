@@ -3,16 +3,16 @@ import MovieCard from "../components/MovieCard";
 
 
 function Favoritos(){
-    const {favoritos} = useFavoritos();
+    const {favoritosPeli} = useFavoritos();
     
     return(
         <div>
             <h2 className="titulo2">Mis peliculas Favoritas</h2>
-            {favoritos.length === 0 ? (
+            {favoritosPeli.length === 0 ? (
                 <p>No hay peliculas favoritas</p>
             ) : (
                 <div className="grid-cards-favoritos">
-                {favoritos.map((peli)=>(
+                {favoritosPeli.map((peli)=>(
                     <MovieCard key={peli.id} pelicula={peli} />
                 ))}
                 </div> 

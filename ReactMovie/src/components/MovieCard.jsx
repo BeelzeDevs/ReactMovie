@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
-import {useFavoritos} from '../context/FavoritosContext'
+import {useFavoritos} from '../context/FavoritosContext';
 
 function MovieCard({pelicula}){
     const imagen = `https://image.tmdb.org/t/p/w300${pelicula.poster_path}`;
-    const {favoritos, AgregarFavoritos, QuitarDeFavoritos} = useFavoritos();
+    const {favoritosPeli, AgregarPeliculaFavoritos, QuitarPeliculaDeFavoritos} = useFavoritos();
 
-    const EsFavorito = favoritos.some((fav)=> fav.id === pelicula.id);
+    const EsFavoritoPeli = favoritosPeli.some((fav)=> fav.id === pelicula.id);
 
     const toogleFavorito = () =>{
-        EsFavorito ? QuitarDeFavoritos(pelicula.id) : AgregarFavoritos(pelicula);
+        EsFavoritoPeli ? QuitarPeliculaDeFavoritos(pelicula) : AgregarPeliculaFavoritos(pelicula);
     }
 
     return(
@@ -19,8 +19,8 @@ function MovieCard({pelicula}){
             <h3>{pelicula.title}</h3>
             <p>⭐{pelicula.vote_average}</p>
             <Link to={`/movie/${pelicula.id}`}>Ver Detalles</Link>
-            <button onClick={toogleFavorito} className={EsFavorito ? 'cardbtn-quitarFav' : 'cardbtn-agregarFav'}>
-                {EsFavorito ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+            <button onClick={toogleFavorito} className={EsFavoritoPeli ? 'cardbtn-quitarFav' : 'cardbtn-agregarFav'}>
+                {EsFavoritoPeli ? 'Quitar de favoritos' : 'Agregar a favoritos'}
             </button>
         </div>
     );

@@ -30,3 +30,34 @@ export async function buscarPeliculasPorNombre(query){
     }
     return data.results;
 }
+
+
+export async function buscarTvPopulares(){
+    const resp = await fetch(`${URL}/trending/tv/day?language=es-ES`,{
+        headers:{
+            Authorization: `Bearer ${API_KEY}`
+        }
+    });
+    const data = await resp.json();
+
+    if(!resp.ok){
+        throw new Error(data.status_message || 'Error al buscar Tv shows');
+    }
+    return data.results;
+}
+
+export async function buscarGenerosTv(){
+    const resp = await fetch(`${URL}/genre/tv/list?language=es-ES`,{
+        headers:{
+            Authorization:`Bearer ${API_KEY}`
+        }
+    });
+
+    const data = await resp.json();
+
+    if(!resp.ok){
+        throw new Error(data.status_message || 'Error al buscar Géneros');
+    }
+
+    return data.genres;
+}

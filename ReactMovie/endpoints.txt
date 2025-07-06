@@ -13,3 +13,18 @@ curl --request GET \
      --url 'https://api.themoviedb.org/3/search/movie?query=nombrePelicula&language=es-ES&page=1' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
+
+
+Trending Tv
+https://developer.themoviedb.org/reference/trending-tv
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/trending/tv/day?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Genre TV List
+https://developer.themoviedb.org/reference/genre-tv-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/genre/tv/list?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'

@@ -2,6 +2,7 @@
   max-width: 1800px;
   margin: 0;
   padding: 2rem;
+  font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,Oxygen,Ubuntu,Cantarell,open sans,helvetica neue,sans-serif;
 }
 a{
   text-decoration: none;
@@ -11,6 +12,7 @@ a{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font: sans-serif;
 }
 
 body {
@@ -103,3 +105,100 @@ body {
   background-color: red;
   color:white;
 }
+/* Grid cards TvShows */
+.grid-cards-tv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.8rem;
+  padding: 0px 10vw;
+}
+/* Card tvShows */
+.cardTv{
+  max-width: 200px;
+  max-height: 300px;
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  color:white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0px 5px 15px 2px rgb(0, 4, 244);
+}
+.cardTv img{
+  min-width:auto;
+  height: 300px;
+  
+}
+.cardTv:hover img{
+  opacity: 0.5;
+}
+.cardTv button{
+  display: none;
+}
+.cardTv:hover button {
+  display: block;
+  height: 30%;
+  width: 30%;
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+  border: none;
+  background: center / contain no-repeat url("./img/playerbtn.svg");
+  color:white;
+}
+
+/* Cards overview, descipción al hacer hover */
+.card-overviewInfor{
+  font-size: .875rem;
+  position: absolute;
+  background-color:#080f28;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  top: 20%;
+  left:60%;
+  padding: 1rem;
+  z-index: 500;
+  width: 300px;
+  pointer-events: none;
+}
+.card-overviewInfor .title{
+  padding-top: 0.5rem;
+  color: #fff;
+}
+.card-overviewInfor .info{
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}
+.card-overviewInfor .info p{
+  color: #edb709;
+  font-size: 1.125rem;
+}
+.card-overviewInfor .info span{
+  margin-right: .5rem;
+  opacity: 0.6;
+}
+.card-overviewInfor .description{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card-overviewInfor .description p{
+  font-size: 1rem;
+  text-align: start;
+  opacity: 0.6;
+}
+.card-overviewInfor .description .generos{
+  text-align: start;
+  opacity: 1;
+}
+.card-overviewInfor .description .generos :last-child{
+  opacity: 0.5;
+}
+
+
