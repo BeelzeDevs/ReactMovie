@@ -1,8 +1,8 @@
 #root{
   max-width: 1800px;
   margin: 0;
-  padding: 2rem;
-  font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,Oxygen,Ubuntu,Cantarell,open sans,helvetica neue,sans-serif;
+  padding: 0;
+  font-family: BlinkMacSystemFont,segoe ui,Roboto,Oxygen,Ubuntu,Cantarell,open sans,helvetica neue,sans-serif;
 }
 a{
   text-decoration: none;
@@ -16,24 +16,72 @@ a{
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #121212;
+  font-family: BlinkMacSystemFont,segoe ui,Roboto,Oxygen,Ubuntu,Cantarell,open sans,helvetica neue,sans-serif;
+  background-color: #080f28;
   color: white;
 }
 
 /* Navbar y links */
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00bcff, #007aff);
+}
+::-webkit-scrollbar {
+        width: .7rem;
+        height: .7rem;
+}
+::-webkit-scrollbar-track {
+        background-color: #1e2747;
+}
+
+
 .nav{
-  padding: 1rem;
-  background-color: #1f1f1f;
+  /* background-color: #1f1f1f; */
+  background-color: #080f28;
   display: flex;
   justify-content: space-evenly;
 }
+.link,
 .link-home{
-  margin-right: 1rem;
+  padding: 1rem;
   color: white;
+  font-size: 1.5625rem;
 }
-.link{
-  color: white;
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  /* background-color: #222; */
+  background-color: #1e2747;
+  top: 100%;
+  left: 0;
+  padding: 0.5rem 0;
+  border-radius: 0.25rem;
+  z-index: 450;
+  min-width: 350px;
+  font-size: .875rem;
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-menu li:hover {
+  background-color: rgba(0,0,0,.3);
+}
+.dropdown-menu li:hover a{
+  color: #007aff;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content;
+  justify-content: center;
+  align-items: center;
 }
 /* titulos h2 */
 .titulo{
@@ -67,52 +115,53 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.8rem;
+  padding: 0px 1vw;
 }
 /* Grid cards movie */
-.grid-cards-home{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-/* Cards Movie, img , link */
-.cardMovie{
-  width: 200px;
-  min-height: 450px;
-  margin: 0.8rem;
-  background-color: #1c1c1c;
-  border-radius: 8px;
-  color:white;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0px 0px 5px 0px;
-}
-.card-img{
-  width: 100%;
-}
-.cardbtn-agregarFav{
-  border-radius: 1rem;
-  padding: 0.3rem;
-  background-color: rgb(103, 239, 166);
-  color:black;
-}
-.cardbtn-quitarFav{
-  border-radius: 1rem;
-  padding: 0.3rem;
-  background-color: red;
-  color:white;
-}
-/* Grid cards TvShows */
-.grid-cards-tv{
+.grid-cards{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.8rem;
-  padding: 0px 10vw;
+  padding: 0px 1vw;
 }
+/* Cards Movie, img , link */
+.cardMovie{
+  max-width: 200px;
+  max-height: 300px;
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: 0px 5px 15px 2px rgb(0, 4, 244);
+}
+.card-img{
+  width: 100%;
+  height: 300px;
+}
+
+.cardMovie:hover img{
+  opacity: 0.5;
+}
+.cardMovie button{
+  display: none;
+}
+.cardMovie:hover .btnreproductor{
+  display: block;
+  height: 30%;
+  width: 30%;
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; bottom: 0; right: 0;
+  border: none;
+  background: center / contain no-repeat url("./img/playerbtn.svg");
+}
+
+
 /* Card tvShows */
 .cardTv{
   max-width: 200px;
@@ -150,7 +199,7 @@ body {
   color:white;
 }
 
-/* Cards overview, descipción al hacer hover */
+      /* Cards overview, descipción al hacer hover */
 .card-overviewInfor{
   font-size: .875rem;
   position: absolute;
@@ -201,4 +250,132 @@ body {
   opacity: 0.5;
 }
 
+      /* Favoritos btn */
+.cardMovie:hover .btnAgregarFav{
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  border-radius: 1rem;
+  padding: 0.3rem;
+  height: 30px;
+  width: 40px;
+  background: center / contain no-repeat url('./img/estrella.svg');
+  border: none;
+}
+.cardMovie:hover .btnQuitarFav{
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  border-radius: 1rem;
+  height: 30px;
+  width: 40px;
+  padding: 0.3rem;
+  background: center / contain no-repeat url('./img/estrellaVacia.svg');
+  border: none;
+}
 
+/* Detalle movie */
+.detallemovie-container {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+}
+.detallemovie-banner{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  height: 100%;
+  margin: 1rem 2rem;
+}
+.img-fondo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+  opacity: .4;
+  z-index: -1;
+}
+        /* Degradado de difuminado del DetalleMovie*/
+.detallemovie-container::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* altura del difuminado */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #080f28 100%);
+}
+
+.detalle-img {
+  max-width: 250px;
+  border-radius: 10px;
+  opacity: none;
+}
+
+.detalle-info {
+  text-align: start;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 1rem;
+  z-index: 25;
+  color: #8da0bc;
+}
+.detalle-info h2{
+  margin-top: 1rem;
+  color: white;
+  font-size: 2rem;
+}
+.detalle-info .generolink{
+  color:rgb(106, 198, 237);
+  opacity: none;
+}
+    /* contenedor videos de DetalleMovie */
+.section-title{
+  margin: 1rem 2rem .5rem 2rem;
+  text-align: start;
+}
+.detalle-movie-videosContainer{
+  margin-left:2rem;
+  display: grid;
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(2,1fr);
+  gap: .2rem;
+  overflow: hidden;
+  height: 500px;
+  width: 50%;
+  align-items: baseline;
+  justify-items: stretch;
+}
+.detalle-movie-videosContainerAUX{
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+  gap: 2rem;
+  margin-left:2rem;
+  margin-right:2rem;
+}
+.detalle-movie-videosContainerAUX iframe{
+  width: 500px;
+  height: 300px;
+}
+
+.detalle-movie-videosContainer iframe:nth-child(1) {
+  grid-row: 1 / 2;
+  grid-column: 1/3;
+}
+
+.detalle-movie-videosContainer iframe:nth-child(2) {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+
+.detalle-movie-videosContainer iframe:nth-child(3) {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}

@@ -49,10 +49,13 @@ function TvCard({tvShow}){
                         <div className="generos">
                             <span >Género: </span>
                             <span>
-                                {tvShow.genre_ids.map(element=> (
-                                    generos.find((g)=> g.id === element).name
-                                )
-                                ).join(', ')}
+                                {tvShow.genre_ids.map(element=> {
+                                    const generoEncontrado = generos.find((g)=> g.id === element)
+                                    return generoEncontrado ? generoEncontrado.name : null;
+                                })
+                                .filter((nombreGen)=> nombreGen !== null)
+                                .join(', ')
+                            }
                             </span>
                         </div>
                     </section>

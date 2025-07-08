@@ -26,7 +26,7 @@ function Tv(){
     return(
         <div>
             <h2>Tv series</h2>
-            <div className='grid-cards-tv'>
+            <div className='grid-cards'>
                 {tvShows &&
                 tvShows.map((show)=>(
                     <TvCard key={show.id} tvShow={show} />                    

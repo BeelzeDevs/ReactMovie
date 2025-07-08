@@ -5,6 +5,7 @@ import Favoritos from './pages/Favoritos';
 import Navbar from './components/Navbar';
 import Tv from './pages/Tv';
 import DetalleTv from './pages/DetalleTv';
+import DetalleGenero from './pages/DetalleGenero';
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/favoritos" element={<Favoritos />} />
         <Route path="/tv" element={<Tv />} />
         <Route path="/tv/:id" element={<DetalleTv />} />
+        <Route path='/genero/:id' element={<DetalleGenero />} />
       </Routes>
     </Router>
 

@@ -28,3 +28,31 @@ curl --request GET \
      --url 'https://api.themoviedb.org/3/genre/tv/list?language=es-ES' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
+
+Genre movies
+https://developer.themoviedb.org/reference/genre-movie-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/genre/movie/list?language=en' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Movies by Genre ID
+https://developer.themoviedb.org/reference/discover-movie
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/discover/movie?language=es-ES&page=1&with_genres={id}' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Movies by ID
+https://developer.themoviedb.org/reference/movie-details
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/movie/${id}?language=es-ES`' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Movie videos
+https://developer.themoviedb.org/reference/movie-videos
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/movie/${id}/videos?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
