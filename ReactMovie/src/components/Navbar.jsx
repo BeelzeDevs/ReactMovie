@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { buscarGenerosMovie } from "../services/tmoviedb";
-import './navbar.css';
+import './Navbar.css';
 
 function Navbar() {
   const [generos, setGeneros] = useState([]);
