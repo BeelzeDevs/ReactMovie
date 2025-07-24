@@ -1,0 +1,234 @@
+
+/* Detalle Movie */
+.detallemovie-container {
+  position: relative;
+  min-height: 800px;
+  overflow: hidden;
+}
+.img-fondo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+  opacity: .4;
+  z-index: -1;
+}
+
+        /* Degradado de difuminado del DetalleMovie*/
+.detallemovie-container::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* altura del difuminado */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #080f28 100%);
+}
+
+.detalle-img {
+  max-width: 250px;
+  border-radius: 10px;
+  opacity: none;
+}
+.detalle-info {
+  text-align: start;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 1rem;
+  z-index: 25;
+  color: #8da0bc;
+}
+
+.detalle-info h2{
+  margin-top: 1rem;
+  color: white;
+  font-size: 2rem;
+}
+.generolink{
+  color:rgb(106, 198, 237);
+  opacity: none;
+}
+    /* contenedor videos de DetalleMovie */
+.section-title{
+  margin: 1rem 2rem .5rem 2rem;
+  text-align: start;
+}
+/* Contendor Grid hasta 3 videos destacados - DetalleMovie */
+.detalle-movie-videosContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 1200px;  
+  justify-content: center;
+  align-items: start;
+}
+
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  left: 0;
+  top: 0;
+}
+
+.detalle-movie-videosContainer .video-wrapper:nth-child(1) {
+  grid-column: 1 / 3;
+}
+
+.detalle-movie-videosContainer .video-wrapper:nth-child(2) {
+  grid-column: 1 / 2;
+}
+
+.detalle-movie-videosContainer .video-wrapper:nth-child(3) {
+  grid-column: 2 / 3;
+}
+
+
+/* CONTENEDOR FLEXIBLE PARA MÁS DE 3 VIDEOS */
+.detalle-movie-videosContainerAUX {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.detalle-movie-videosContainerAUX .video-wrapper {
+  flex: 1 1 400px;
+  max-width: 600px;
+}
+
+ 
+/* Videos de iframe en detalleMovie */
+.video-wrapper {
+  margin-bottom: 1rem;
+}
+
+.responsive-iframe {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.responsive-iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+.detallemovie-container .btnAgregarFavMovie{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  background-color: rgb(9, 129, 9);
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+.detallemovie-container .btnQuitarFavMovie{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgb(173, 38, 38);
+}
+.detallemovie-container .linkImbd{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  font-weight: 600;
+}
+.linkImbd:hover{
+  color: #007aff;
+}
+
+@media only screen and (min-width:250px) {
+  .detallemovie-container {
+    position: relative;
+    min-height: 1200px;
+    overflow: hidden;
+  }
+  .banner{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    margin: 1rem 2rem;
+  }
+  .detalle-btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    padding-top: 5px;
+  }
+  .detalle-info {
+  color: #fff;
+  opacity: .9;
+  }
+ 
+}
+@media only screen and (min-width:576px) {
+  .detallemovie-container {
+  min-height: 800px;
+  }
+  .banner{
+    grid-template-columns: .5fr 1fr;
+    grid-template-rows: auto;
+  }
+  .detalle-info{
+    color: #8da0bc;
+    opacity: 1;
+  }
+  
+}
+
+@media only screen and (min-width:992px){
+
+  .banner{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  height: 100%;
+  margin: 1rem 2rem;
+}
+}
+@media only screen and (min-width:1200px){
+  
+  .banner{
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  height: 100%;
+  margin: 1rem 2rem;
+}
+}

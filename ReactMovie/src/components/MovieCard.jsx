@@ -1,10 +1,11 @@
-import {Link, useSearchParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useFavoritos} from '../context/FavoritosContext';
 import { useEffect, useState } from 'react';
 import {buscarGenerosMovie} from '../services/tmoviedb';
+import NoImagen from '../img/sinimagen.jpg';
 
 function MovieCard({pelicula}){
-    const imagen = `https://image.tmdb.org/t/p/w300${pelicula.poster_path}`;
+    const imagen = pelicula.poster_path !== null ? `https://image.tmdb.org/t/p/w500${pelicula.poster_path}` : `${NoImagen}`;
     const {favoritosPeli, AgregarPeliculaFavoritos, QuitarPeliculaDeFavoritos} = useFavoritos();
     
     const [hover, setHover] = useState(false);
@@ -38,7 +39,7 @@ function MovieCard({pelicula}){
     if(error) return <h2>Error {error}</h2>
     return(
         <li className='cardMovie' onMouseLeave={desactivarHoverImg} onMouseEnter={HoverImg}>
-            <Link to={`/movie/${pelicula.id}`} >
+            <Link to={`/pelicula/${pelicula.id}`} >
                 <img src={imagen} alt={pelicula.original_title} className="card-img" />
                 <button className='btnreproductor'></button>
             </Link>
@@ -55,7 +56,7 @@ function MovieCard({pelicula}){
                         <p >{pelicula.overview.slice(0,120)}</p>
                         <div className="generos">
                             <span >Género: </span>
-                            <span>
+                            <span className='generolink'>
                                 {pelicula.genre_ids.map(element=> {
 
                                     const generoEncontrado = generos.find((g) => g.id === element);

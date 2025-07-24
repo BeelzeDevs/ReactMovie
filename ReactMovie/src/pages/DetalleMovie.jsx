@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { buscarPeliculaPorId,buscarVideos } from "../services/tmoviedb";
+import { buscarPeliculaPorId,buscarVideosMovie } from "../services/tmoviedb";
 import Spinner from "../components/Spinner";
+import './DetalleMovie.css';
+import {useFavoritos} from '../context/FavoritosContext';
 
 function DetalleMovie() {
     const { id } = useParams();
@@ -11,6 +13,9 @@ function DetalleMovie() {
     const [loadingVideos, setLoadingVideos] = useState(true);
     const [errorVideos, setErrorVideos] = useState(null);
     const [videos,setVideos] = useState([]);
+
+    const {favoritosPeli, AgregarPeliculaFavoritos, QuitarPeliculaDeFavoritos} = useFavoritos();
+    const esFavorito = favoritosPeli.some((fav)=> fav.id === Number(id));
 
     useEffect(() => {
         setLoadingPelicula(true);
@@ -27,7 +32,7 @@ function DetalleMovie() {
 
     useEffect(() => {
         setLoadingVideos(true);
-        buscarVideos(id)
+        buscarVideosMovie(id)
             .then((vids) => {
             setVideos(vids);
             setLoadingVideos(false);
@@ -37,6 +42,10 @@ function DetalleMovie() {
             setLoadingVideos(false);
             });
     }, [id]);
+    
+    const handleFavoritoClick = () =>{
+        esFavorito ? QuitarPeliculaDeFavoritos(pelicula): AgregarPeliculaFavoritos(pelicula);
+    }
 
     if (loadingPelicula) return <Spinner />;
     if (errorPelicula) return <p>Error: {errorPelicula.message}</p>;
@@ -51,10 +60,21 @@ function DetalleMovie() {
     return (
         <div >
             <section className="detallemovie-container">
-                <div className="detallemovie-banner">
+                <div className="banner">
                     <img src={imagen} alt={pelicula.title} className="img-fondo" />
                     <div >
                         <img src={imagen} alt={pelicula.title} className="detalle-img" />
+                        <div className="detalle-btns">
+                            <button className={esFavorito ? "btnQuitarFavMovie" : "btnAgregarFavMovie"} onClick={handleFavoritoClick}>{esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}</button>
+                            <a
+                            href={`https://www.imdb.com/title/${pelicula.imdb_id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="linkImbd"
+                            >
+                            Ver en IMDb
+                            </a>
+                        </div>
                     </div>
                     <div className="detalle-info">
                         <h2><strong>{pelicula.title}</strong></h2>
@@ -76,54 +96,28 @@ function DetalleMovie() {
                         </p>
                         <p>Descripción: {pelicula.overview}</p>
                     </div>
-                    <div>
-                        <a
-                        href={`https://www.imdb.com/title/${pelicula.imdb_id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >
-                        Ver en IMDb
-                        </a>
-                    </div>
+                    
                 </div>
             </section>
             <section >
                 {loadingVideos && <Spinner />}
                 {errorVideos && <p>Error cargando videos: {errorVideos.message}</p>}
-                <h2 className="section-title">Videos</h2>
-                <div className={tamañoVideos > 4 ? "detalle-movie-videosContainer" : "detalle-movie-videosContainerAUX" }>
-                    { videosAux && tamañoVideos >= 4 &&
-                    videosAux.slice(0, 4).map((vid,index)=>{
+                <div className={tamañoVideos > 3 ? "detalle-movie-videosContainer" : "detalle-movie-videosContainer"}>
+                {
+                    videosAux && tamañoVideos > 0 &&
+                    videosAux.slice(0, tamañoVideos > 3 ? 4 : 3).map((vid, index) => {
                         const youtubeUrl = `https://www.youtube.com/embed/${vid.key}`;
-                        return(
-                            <div>
-                                <iframe src={youtubeUrl} title={vid.name} key={vid.id}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                frameBorder="0"
-                                className={index}
-                                width="100%"
-                                height="100%"
-                                ></iframe>
-                                <p>{vid.name}</p>
-                            </div>
-                        );
-                    })
-                }
-                { videosAux && tamañoVideos > 0 &&
-                    videosAux.slice(0, 2).map((vid,index)=>{
-                        const youtubeUrl = `https://www.youtube.com/embed/${vid.key}`;
-                        return(
-                            <div>
-                                <iframe src={youtubeUrl} title={vid.name} key={vid.id}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                frameBorder="0"
-                                className={index}
-                                width="100%"
-                                height="100%"
-                                ></iframe>
-                                <p>{vid.name}</p>
+                        return (
+                            <div key={vid.id} className="video-wrapper">
+                                <div className="responsive-iframe">
+                                    <iframe
+                                        src={youtubeUrl}
+                                        title={vid.name}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                    <p>{vid.name}</p>
+                                </div>
                             </div>
                         );
                     })

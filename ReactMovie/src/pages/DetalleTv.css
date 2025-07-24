@@ -1,0 +1,244 @@
+ /* Detalle Tv  */
+.TvShowContainer1 {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+}
+.img-fondo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+  opacity: .4;
+  z-index: -1;
+}
+
+
+        /* Degradado de difuminado del DetalleMovie*/
+.TvShowContainer1::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* altura del difuminado */
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #080f28 100%);
+} 
+/* Tv Show Container 2 */
+.TvShowContainer2{
+  display: grid;
+  grid-template-columns: 1fr 0.4fr;
+  grid-template-rows: 100px 1fr;
+  margin:1rem 2rem;
+  justify-items: start;
+}
+.TvShowContainer2 h3{
+  font-size: 2rem;
+}
+.TvShowContainer2 h4{
+  font-size: .8rem;
+}
+
+
+              /*Includes : Header  */
+.TvShowContainer2 header{
+  text-align: start;
+  grid-column: 1/3;
+  grid-row: 1/2;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.spanselect{
+  padding: .5rem 1.5rem .5rem 1.25rem;
+  border-radius: 3px;
+  background-color: #141a32;
+  color: #4f6b95;
+}
+.dropdown{
+  font-size: 1rem;
+  border-radius: 3px;
+  padding: .5rem 2rem;
+  background-color: #1e2747;
+  color: #8da0bc;
+}
+
+.dropdown:hover {
+  border-color: #6a6ded;
+}
+
+.dropdown:focus {
+  color: #fff;
+}
+              /*Includes: Tv Season Container */
+.TvSeasonContainer{
+  width: 100%;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  margin: 1rem 0;
+}
+.TvSeasonContainer ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: flex-start;
+}
+.TvSeasonContainer ul li{
+  cursor:pointer;
+  position: relative;
+  max-width: 199px;
+}
+.TvSeasonContainer ul img{
+  height: 180px;
+  width: 190px;
+  border-radius: 10px;
+}
+.TvSeasonContainer li:hover button{
+  display: block;
+  height: 30%;
+  width: 30%;
+  position: absolute;
+  margin: auto;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border: none;
+  background: center / contain no-repeat url("../img/playerbtn.svg");
+  color:white;
+  cursor: pointer;
+}
+.TvSeasonContainer li:hover {
+  opacity: 0.8;
+}
+.TvSeasonContainer li button{
+  display: none;
+}
+.TvSeasonContainer span{
+  position: absolute;
+  right: 0;
+  bottom: 14%;
+  padding: .1rem .5rem;
+  border-radius: 10px;
+  background-color: #007aff;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+
+
+              /*Includes: Tv Recommendations Container */
+.TvRecommendationContainer{
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 100%;
+  height: 100%;
+  align-self: flex-start;
+  margin: 1rem 0;
+}
+.TvRecommendationContainer ul{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.TvRecommendationContainer img{
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.TvRecommendationContainer li:hover {
+  opacity: 0.7;
+}
+
+.TvShowContainer1 .detalle-btns{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1rem;
+}
+.TvShowContainer1 .btnAgregarFavTv{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  background-color: rgb(9, 129, 9);
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+.TvShowContainer1 .btnQuitarFavTv{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgb(173, 38, 38);
+}
+.TvShowContainer1 .linkTvHomePage{
+  border-radius: 1rem;
+  padding: 0.8rem;
+  border: none;
+  font-weight: 600;
+}
+.linkTvHomePage:hover{
+  color: #007aff;
+}
+
+@media only screen and (min-width:0px) {
+  .TvRecommendationContainer{
+    display: none;
+  }
+  .TvShowContainer2{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 1fr;
+    margin:1rem 2rem;
+    justify-items: start;
+  }
+  .TvSeasonContainer ul{
+    justify-content: center;
+  }
+  .TvShowContainer1{
+    min-height: 1200px;
+  }
+  .TvShowContainer2 header{
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (min-width:576px) {
+  
+  .TvShowContainer1{
+    min-height: 800px;
+  }
+  .TvShowContainer2 header{
+    display: block;
+  }
+  
+}
+@media only screen and (min-width:715px) {
+  .TvRecommendationContainer{
+    display: block;
+  }
+  .TvShowContainer2{
+    display: grid;
+    grid-template-columns: 1fr 0.4fr;
+    grid-template-rows: 100px 1fr;
+    margin:1rem 2rem;
+    justify-items: start;
+  }
+  .TvSeasonContainer ul{
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (min-width:992px){
+
+}
+@media only screen and (min-width:1200px){
+  
+}

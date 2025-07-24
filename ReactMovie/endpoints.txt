@@ -1,8 +1,22 @@
 
-Home - Trending - movies
+Peliculas - Popular - movies
+https://developer.themoviedb.org/reference/movie-popular-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/movie/popular?language=es-ES&page=${page}' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Peliculas - Tendias del día - movies
 https://developer.themoviedb.org/reference/trending-movies
 curl --request GET \
-     --url 'https://api.themoviedb.org/3/trending/movie/day?language=en-US' \
+     --url 'https://api.themoviedb.org/3/trending/movie/day?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Peliculas - Tendias de la semana - movies
+https://developer.themoviedb.org/reference/trending-movies
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/trending/movie/week?language=es-ES' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
 
@@ -14,11 +28,17 @@ curl --request GET \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
 
+TV - Populares - Tv
+https://developer.themoviedb.org/reference/tv-series-popular-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/popular?language=es-ES&page=1' \
+     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NmIwOTBhMmE0NWE5Yjc0OThlMzZhODNlMTRjY2VmOSIsIm5iZiI6MTc1MTQwNzUzMi4xODQsInN1YiI6IjY4NjQ1YmFjZDljYTA2ZmNlZmY4NDBhZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gg36z1DhdZNwx_zhig_i_6NYrk_l3UAqPd-6zRf2ayw' \
+     --header 'accept: application/json'
 
-Trending Tv
+Tv - Tendencias para día y semana ${time} = day o week
 https://developer.themoviedb.org/reference/trending-tv
 curl --request GET \
-     --url 'https://api.themoviedb.org/3/trending/tv/day?language=es-ES' \
+     --url 'https://api.themoviedb.org/3/trending/tv/${time}?language=es-ES' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
 
@@ -32,7 +52,7 @@ curl --request GET \
 Genre movies
 https://developer.themoviedb.org/reference/genre-movie-list
 curl --request GET \
-     --url 'https://api.themoviedb.org/3/genre/movie/list?language=en' \
+     --url 'https://api.themoviedb.org/3/genre/movie/list?language=es-ES' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'
 
@@ -54,5 +74,54 @@ Movie videos
 https://developer.themoviedb.org/reference/movie-videos
 curl --request GET \
      --url 'https://api.themoviedb.org/3/movie/${id}/videos?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+TvShow by ID
+https://developer.themoviedb.org/reference/tv-series-details
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/${id}?language=es-ES' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+TvShow videos
+https://developer.themoviedb.org/reference/tv-series-videos
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/${id}/videos?language=es-ES' \
+     --header 'Authorization: Bearer ClaveApi' \
+     --header 'accept: application/json'
+Tv Recommendations
+https://developer.themoviedb.org/reference/tv-series-recommendations
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/${id}/recommendations?language=es-ES&page=1' \
+     --header 'Authorization: Bearer APIClave' \
+     --header 'accept: application/json'
+
+
+Tv Seasons info - idTvShow && Season number
+https://developer.themoviedb.org/reference/tv-season-details
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/${id}/season/season_number/1/language=es-ES' \
+     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NmIwOTBhMmE0NWE5Yjc0OThlMzZhODNlMTRjY2VmOSIsIm5iZiI6MTc1MTQwNzUzMi4xODQsInN1YiI6IjY4NjQ1YmFjZDljYTA2ZmNlZmY4NDBhZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gg36z1DhdZNwx_zhig_i_6NYrk_l3UAqPd-6zRf2ayw' \
+     --header 'accept: application/json'
+
+Multi search - Buscar películas, Tv Show
+https://api.themoviedb.org/3/search/multi
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/search/multi?query=${busqueda}&language=es-ES&page=${page}' \
+     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NmIwOTBhMmE0NWE5Yjc0OThlMzZhODNlMTRjY2VmOSIsIm5iZiI6MTc1MTQwNzUzMi4xODQsInN1YiI6IjY4NjQ1YmFjZDljYTA2ZmNlZmY4NDBhZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gg36z1DhdZNwx_zhig_i_6NYrk_l3UAqPd-6zRf2ayw' \
+     --header 'accept: application/json'
+
+
+Peliculas - Mejor Valoradas
+https://developer.themoviedb.org/reference/movie-top-rated-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/movie/top_rated?language=es-ES&page=1' \
+     --header 'Authorization: Bearer ClaveAPI' \
+     --header 'accept: application/json'
+
+Tv - Mejor Valoradas
+https://developer.themoviedb.org/reference/tv-series-top-rated-list
+curl --request GET \
+     --url 'https://api.themoviedb.org/3/tv/top_rated?language=es-ES&page=1' \
      --header 'Authorization: Bearer ClaveAPI' \
      --header 'accept: application/json'

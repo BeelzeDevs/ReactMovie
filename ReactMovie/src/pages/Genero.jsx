@@ -70,22 +70,24 @@ function DetalleGenero() {
 
     if(error) return <h2>Error: {error}</h2>
     return (
-        <article>
-            <h2>{genero.name}</h2>
+        <article className="main2">
+            <section>
+                <h2 className="titulo2">{genero.name}</h2>
 
-            <ul className="grid-cards">
-                {peliculas && peliculas.map((peli,index)=>{
-                    const esUltimaPeli = index === peliculas.length - 1;   
-                    
-                    return (
-                         <div ref={esUltimaPeli ? ultimaPeli : null} key={peli.id}>
-                            <MovieCard pelicula={peli} />
-                        </div>
-                        );
-                })
-                }
-            </ul>
-            {loading && <Spinner />}
+                <ul className="grid-cards">
+                    {peliculas && peliculas.map((peli,index)=>{
+                        const esUltimaPeli = index === peliculas.length - 1;   
+                        
+                        return (
+                            <div ref={esUltimaPeli ? ultimaPeli : null} key={peli.id}>
+                                <MovieCard pelicula={peli} />
+                            </div>
+                            );
+                    })
+                    }
+                </ul>
+                {loading && <Spinner />}
+            </section>
         </article>
     );
 

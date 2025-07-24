@@ -42,7 +42,7 @@ export function FavoritosProvider({children}){
     }
 
     return (
-        <favoritosContexto.Provider value={{favoritosPeli, AgregarPeliculaFavoritos, QuitarPeliculaDeFavoritos,AgregarTvFavoritos,QuitarTvDeFavoritos}}>
+        <favoritosContexto.Provider value={{favoritosPeli, AgregarPeliculaFavoritos, QuitarPeliculaDeFavoritos,favoritosTv,AgregarTvFavoritos,QuitarTvDeFavoritos}}>
             {children}
         </favoritosContexto.Provider>
     )

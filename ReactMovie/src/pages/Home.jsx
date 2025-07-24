@@ -1,107 +1,115 @@
-import { useEffect, useState, useRef, useCallback } from "react";
-import {fetchPeliculasPopulares, buscarPeliculasPorNombre} from '../services/tmoviedb';
-import MovieCard from "../components/MovieCard";
+import { useEffect, useState, useRef } from "react";
+import { fetchPeliculasMejorValoradas, fetchTvMejorValoradas } from "../services/tmoviedb";
+import MovieCardCarrousel from "../components/MovieCardCarrousel";
+import TvCardCarrousel from "../components/TvCardCarrousel";
 import Spinner from "../components/Spinner";
-
+import "./Home.css";
 
 function Home(){
     const [peliculas, setPeliculas] = useState([]);
-    const [pagina,setPagina] = useState(1);
-    const [more, setMore] = useState(true);
+    const [loadingPeli, setLoadingPeli] = useState(true);
+    const [errorPeli, setErrorPeli] = useState(null);
+    const carruselRef1 = useRef(null);
 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     
-    const [busqueda,setBusqueda] = useState('');
-    const [queryFinal,setQueryFinal] = useState('');
-    
-  
+    const [tvShows, setTvShows] = useState([]);
+    const [loadingTv, setLoadingTv] = useState(true);
+    const [errorTv,setErrorTv] = useState(null);
+    const carruselRef2 = useRef(null);
+
     useEffect(() => {
+        fetchPeliculasMejorValoradas()
+            .then((data) => {
+                setPeliculas(data.slice(0, 20));
+                setLoadingPeli(false);
+            })
+            .catch((err) => {
+                setErrorPeli(err);
+                setLoadingPeli(false);
+            })
+    }, []);
 
-      setLoading(true);
-      
-      if (pagina === 1) setPeliculas([]); // reiniciar el set péliculas
+    useEffect(()=>{
+        fetchTvMejorValoradas()
+            .then((data) => {
+                setTvShows(data.slice(0, 20));
+                setLoadingTv(false);
+            })
+            .catch((err) =>{
+                setErrorTv(err);
+                setLoadingTv(false);
 
-      const fetchPeliculas = queryFinal.trim() === ''
-        ? () => fetchPeliculasPopulares(pagina)
-        : () => buscarPeliculasPorNombre(queryFinal);
+            }) 
+        },[]);
 
-      fetchPeliculas()
-        .then((nuevasPelis) => {
-          setPeliculas((prev) => pagina === 1 ? nuevasPelis : [...prev, ...nuevasPelis]);
-          setMore(nuevasPelis.length > 0);// Si no hay más, se detiene el scroll
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setLoading(false);
-        });
-      
-        
-  }, [queryFinal, pagina]);
+    const scroll = (ref, direccion) => {
+        const scrollCantidad = 267.45;
+        if (!ref.current) return;
 
+        const contenedor = ref.current;
+        const maxScroll = contenedor.scrollWidth - contenedor.clientWidth;
 
-  useEffect(() => {
-    setPagina(1);  // Reiniciar paginación
-  }, [queryFinal]);
-
-    const handleInputChange = e =>{
-        setBusqueda(e.target.value);
-    }
-    const handleSubmit = e =>{
-        e.preventDefault();
-        setQueryFinal(busqueda);
-    }
-
-  
-
-    // Observador para scroll infinito
-    const observer = useRef();
-
-    const ultimaPeli = useCallback((nodo)=>{
-      if(loading) return;
-      if(observer.current) observer.current.disconnect();// Si hay un observer de useRef, lo desconectamos
-
-      observer.current = new IntersectionObserver((entries)=>{
-        if(entries[0].isIntersecting && more){
-          setPagina((prev)=> prev +1);
+        if (direccion === 'left') {
+            contenedor.scrollLeft <= 0
+                ? (contenedor.scrollLeft = maxScroll)
+                : contenedor.scrollBy({ left: -scrollCantidad, behavior: 'smooth' });
+        } else {
+            contenedor.scrollLeft >= maxScroll - 5
+                ? (contenedor.scrollLeft = 0)
+                : contenedor.scrollBy({ left: scrollCantidad, behavior: 'smooth' });
         }
-      });
+    };
 
-      if(nodo) observer.current.observe(nodo); //observer que observar el nodo
-    },[loading, more]);
 
-    if(error) return <p>Error: {error}</p>;
     return(
-        <div>
-            <h2 className="titulo">Peliculas Populares</h2>
+    <section>
+        <article>
+            <h2 className="titulo2">Películas Mejor valoradas</h2>
+            {loadingPeli && <Spinner />}
+            {errorPeli && <p>Error : {errorTv.message}</p>}
+            {!loadingPeli && (
+                <div className="carousel-container">
+                    <button onClick={() => scroll(carruselRef1,'left')} className="carousel-btn left">
+                       
+                    </button>
 
-            <form onSubmit={handleSubmit} className="busqueda-container">
-                <input 
-                type="text"
-                placeholder="Buscar peliculas.."
-                value={busqueda}
-                onChange={handleInputChange}
-                className="barra-busqueda"
-                />
-                <button type="submit" className="busqueda-btn"><span className="busqueda-img"></span></button>
-            </form>
+                    <div className="carousel" ref={carruselRef1}>
+                        {peliculas.map((peli) => (
+                            <MovieCardCarrousel key={peli.id} pelicula={peli} />
+                        ))}
+                    </div>
 
-            <ul className="grid-cards">
-                {peliculas &&
-                    peliculas.map((pelicula, index)=> {
-                      const esUltimaPeli = index === peliculas.length -1;
-                      return(
-                        <div ref={esUltimaPeli ? ultimaPeli : null} key={pelicula.id}>
-                          <MovieCard key={pelicula.id} pelicula={pelicula} />
-                        </div>
-                      )
-                      
-                    })
-                }
-            </ul>
-            {loading && <Spinner />}
-        </div>
+                    <button onClick={() => scroll(carruselRef1,'right')} className="carousel-btn right">
+                       
+                    </button>
+                </div>
+            )}
+        </article>
+        
+        <article>
+            <h2 className="titulo2">Tv Mejor valoradas</h2>
+            {loadingTv && <Spinner />}
+            {errorTv && <p>Error : {errorTv.message}</p>}
+            {!loadingTv && (
+                <div className="carousel-container">
+                    <button onClick={() => scroll(carruselRef2,'left')} className="carousel-btn left">
+                        
+                    </button>
+
+                    <div className="carousel" ref={carruselRef2}>
+                        {tvShows.map((tv) => (
+                            <TvCardCarrousel key={tv.id} tvShow={tv} />
+                        ))}
+                    </div>
+
+                    <button onClick={() => scroll(carruselRef2,'right')} className="carousel-btn right">
+                       
+                    </button>
+                </div>
+            )}
+        </article>
+        
+    </section>
     );
 }
 

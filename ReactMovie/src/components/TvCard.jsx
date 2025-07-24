@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {buscarGenerosTv} from '../services/tmoviedb';
+import NoImagen from '../img/sinimagen.jpg';
+import {useFavoritos} from '../context/FavoritosContext';
 
 function TvCard({tvShow}){
-    const imagen = `https://image.tmdb.org/t/p/w300${tvShow.poster_path}`;
+    
+    const imagen = tvShow.poster_path !== null ? `https://image.tmdb.org/t/p/w300${tvShow.poster_path}` : `${NoImagen}`;
     const [hover, setHover] = useState(false);
     const [generos,setGeneros]= useState([]);
     const [error,setError] = useState(null);
+    const {favoritosTv,AgregarTvFavoritos,QuitarTvDeFavoritos} = useFavoritos();
+    
+
+    const EsFavoritoTv = favoritosTv.some((fav)=> fav.id === tvShow.id);
 
     const HoverImg = () =>{
         setHover(true);
@@ -14,7 +21,10 @@ function TvCard({tvShow}){
     const desactivarHoverImg = () =>{
         setHover(false);
     }
-
+     
+    const toogleFavorito = () =>{
+        EsFavoritoTv ? QuitarTvDeFavoritos(tvShow) : AgregarTvFavoritos(tvShow);
+    }
     useEffect(()=>{
         buscarGenerosTv()
         .then((gen)=>{
@@ -29,10 +39,10 @@ function TvCard({tvShow}){
     if(error) return <p>Error: {error}</p>
 
     return(
-        <div className="cardTv" onMouseLeave={desactivarHoverImg} onMouseEnter={HoverImg}>
+        <li className="cardTv" onMouseLeave={desactivarHoverImg} onMouseEnter={HoverImg}>
             <Link to={`/tv/${tvShow.id}`} >
                 <img src={imagen} alt={tvShow.name} className="card-img" />
-                <button ></button>
+                <button className='btnreproductor'></button>
             </Link>
             
             {hover &&
@@ -49,7 +59,7 @@ function TvCard({tvShow}){
                         <div className="generos">
                             <span >Género: </span>
                             <span>
-                                {tvShow.genre_ids.map(element=> {
+                                {tvShow.genre_ids?.map(element=> {
                                     const generoEncontrado = generos.find((g)=> g.id === element)
                                     return generoEncontrado ? generoEncontrado.name : null;
                                 })
@@ -61,7 +71,10 @@ function TvCard({tvShow}){
                     </section>
                 </div>
             }
-        </div>
+            <button onClick={toogleFavorito} className={EsFavoritoTv ? 'btnAgregarFav' : 'btnQuitarFav'}>
+                
+            </button>
+        </li>
     );
 }
 
