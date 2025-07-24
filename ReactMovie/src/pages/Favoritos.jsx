@@ -4,7 +4,7 @@ import TvCard from "../components/TvCard";
 
 
 function Favoritos(){
-    const {favoritosPeli,favoritosTv} = useFavoritos();
+    const {favoritosPeli = [],favoritosTv = []} = useFavoritos();
     
     return(
         <section className="main3">
