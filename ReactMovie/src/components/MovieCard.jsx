@@ -57,7 +57,8 @@ function MovieCard({pelicula}){
                         <div className="generos">
                             <span >Género: </span>
                             <span className='generolink'>
-                                {pelicula.genre_ids.map(element=> {
+                                {Array.isArray(pelicula.genre_ids) &&
+                                pelicula.genre_ids.map(element=> {
 
                                     const generoEncontrado = generos.find((g) => g.id === element);
                                     return generoEncontrado ? generoEncontrado.name : null;
